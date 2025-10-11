@@ -1,10 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 @import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --font-sans: "Inter", sans;
+  --font-mono: "JetBrains Mono", mono;
+
+  --color-dark-green: #1e2321;
+  --color-light-green: #c6e0bd;
+  --color-light-green-2: #ebffe4;
+  --color-mild-green: #507767;
+  --color-green: #2b994a;
+}
+
+@layer components {
+  .btn {
+    background-color: rgba(43, 153, 74, 0.86);
+    outline: none;
+    border: 1px solid #2b994a;
+    color: #1e231f;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    @apply py-[0.5em] px-[2em] rounded-lg shadow-md font-medium m-0 duration-150 ease-out hover:scale-105;
+  }
+
+  .card {
+    @apply aspect-square h-[17em] max-h-[250px] min-h-[100px] border-1 border-[#87AE87] rounded-xl overflow-hidden py-3 px-2 relative shadow-lg hover:shadow-xl cursor-pointer hover:scale-101 duration-150 ease-out opacity-70 hover:opacity-90;
+  }
+
+  .card p {
+    @apply absolute font-bold text-dark-green bg-[rgba(173,201,173,0.66)] border-[#87AE87] shadow-lg rounded-xl p-3 m-2.5 bottom-0 left-0 leading-5;
+  }
+
+  .card img {
+    @apply absolute top-0 left-0 -z-1 w-full saturate-70;
+  }
+
+  .card .bg {
+    @apply absolute -z-2 top-0 left-0 w-full h-full bg-[rgba(173,201,173,0.63)];
+  }
+}
 
 body {
   background: #1e2321;
   background: radial-gradient(
     circle,
-    rgba(30, 35, 33, 1) 10%,
-    rgba(34, 45, 40, 1) 100%
+    rgba(34, 45, 40, 1) 10%,
+    rgba(30, 35, 33, 1) 100%
   );
+
+  background-size: 100% 200%;
+
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  width: 100vw;
+  height: 100vh;
+
+  user-select: none;
+
+  color: #c6e0bd;
+
+  scrollbar-width: thin;
+}
+
+.root::-webkit-scrollbar {
+  width: 10px;
+}
+
+.root::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.root::-webkit-scrollbar-thumb {
+  background-color: rgba(198, 224, 189, 0.6);
+  border-radius: 5px;
+}
+
+.hero-gradient {
+  background: #1e2321;
+  background: radial-gradient(
+    circle,
+    rgba(30, 35, 33, 1) 40%,
+    rgba(39, 58, 51, 1) 76%,
+    rgba(39, 58, 51, 1) 100%
+  );
+  background-size: 100% 200%;
+  background-position: 0% -200%;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
