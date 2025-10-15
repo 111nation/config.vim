@@ -26,15 +26,15 @@
     cursor: pointer;
     box-sizing: border-box;
 
-    @apply py-[0.5em] px-[2em] rounded-lg shadow-md font-medium m-0 duration-150 ease-out hover:scale-105;
+    @apply py-[0.5em] px-[2em] rounded-lg shadow-md font-medium m-0 duration-150 ease-out active:scale-105 hover:scale-105;
   }
 
   .card {
-    @apply aspect-square h-[17em] max-h-[250px] min-h-[100px] border-1 border-[#87AE87] rounded-xl overflow-hidden py-3 px-2 relative shadow-lg hover:shadow-xl cursor-pointer hover:scale-101 duration-150 ease-out opacity-70 hover:opacity-90;
+    @apply aspect-square h-[17em] max-h-[250px] min-h-[100px] border-2 border-[#87AE87] rounded-xl overflow-hidden py-3 px-2 relative shadow-lg hover:shadow-xl cursor-pointer hover:scale-101 duration-150 ease-out opacity-70 active:opacity-90 hover:opacity-90;
   }
 
   .card p {
-    @apply absolute font-bold text-dark-green bg-[rgba(173,201,173,0.66)] border-[#87AE87] shadow-lg rounded-xl p-3 m-2.5 bottom-0 left-0 leading-5;
+    @apply absolute font-bold text-dark-green bg-[#87AE87] border-[#87AE87] shadow-lg rounded-xl p-3 m-2.5 bottom-0 left-0 leading-5;
   }
 
   .card img {
@@ -72,15 +72,16 @@ body {
   scrollbar-width: thin;
 }
 
-.root::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
-.root::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.root::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: rgba(198, 224, 189, 0.6);
   border-radius: 5px;
 }
@@ -103,4 +104,12 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
+}
+
+code {
+  @apply bg-dark-green text-green font-extralight rounded px-2;
 }
