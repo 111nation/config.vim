@@ -1,8 +1,7 @@
-import Languages from "./pages/Languages";
+import Plugins from "./pages/Plugins";
 
 function App() {
-  return <Languages />;
-  //return <Result></Result>;
+  return <Plugins />;
 }
 
 export default App;

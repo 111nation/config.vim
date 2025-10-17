@@ -2,7 +2,8 @@ import Button from "./Button";
 
 function Footer() {
   return (
-    <footer class="w-screen bg-dark-green flex items-center justify-end mt-30 p-3 pr-7 sticky bottom-0 left-0">
+    <footer className="w-screen bg-dark-green flex items-center justify-between mt-30 p-3 px-7 sticky bottom-0 left-0">
+      <Button>← PREV</Button>
       <Button>NEXT →</Button>
     </footer>
   );
