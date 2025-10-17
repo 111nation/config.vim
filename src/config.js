@@ -1,6 +1,6 @@
 const config = {
-  languages: new Map(),
-  plugins: new Map(),
+  languages: [],
+  plugins: [],
   theme: null,
 };
 

@@ -1,22 +1,26 @@
 import Footer from "../components/Footer";
-import Search from "../components/Search";
 import Section from "../components/Section";
-import Card from "../components/Card";
+import Option from "../components/LanguageOption";
 import { languages } from "../config";
 import { useState } from "react";
 
 function Languages() {
-  let [activeCards, setActiveCards] = useState(new Array());
+  let [selected, setSelected] = useState([]);
 
-  const toggleCard = (name) => {
-    let index = activeCards.indexOf(name);
-    if (index < 0) {
-      activeCards.push(name);
-      setActiveCards(activeCards.slice());
+  const name = Array.from(languages.keys());
+  const value = Array.from(languages.values());
+
+  const optionClick = (name) => {
+    if (selected.includes(name)) {
+      // Deselect
+      let index = selected.indexOf(name);
+      selected.splice(index, 1); // Remove 1st element at index 'index'
     } else {
-      activeCards.splice(index, 1); // Remove element in array
-      setActiveCards(activeCards.slice());
+      // Select
+      selected.push(name);
     }
+
+    setSelected([...selected]);
   };
 
   return (
@@ -27,18 +31,17 @@ function Languages() {
         </p>
       </nav>
       <Section>Select Language</Section>
-      <Search placeholder="Rust..." />
-      <div className="p-7 sm:p-10 xl:px-30 grid grid-cols-2 gap-4 md:grid-cols-4  md:gap-4 xl:grid-cols-6 xl:gap-5">
-        {Array.from(languages).map(([name, data]) => (
-          <Card
-            key={name}
-            alt={name}
-            src={"/Images/languages/" + data.image}
-            active={activeCards.includes(name)}
-            onClick={() => toggleCard(name)}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2  p-10 gap-5">
+        {name.map((item, i) => (
+          <Option
+            onClick={() => optionClick(item)}
+            active={selected.includes(item)}
+            src={value[i].image}
+            key={i}
           >
-            {name}
-          </Card>
+            {item}
+          </Option>
         ))}
       </div>
 
