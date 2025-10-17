@@ -30,7 +30,7 @@
   }
 
   .card {
-    @apply aspect-square h-[17em] max-h-[250px] min-h-[100px] border-2 border-[#87AE87] rounded-xl overflow-hidden py-3 px-2 relative shadow-lg hover:shadow-xl cursor-pointer hover:scale-101 duration-150 ease-out opacity-70 active:opacity-90 hover:opacity-90;
+    @apply aspect-square h-[17em] max-h-[250px] min-h-[100px]  border-[#87AE87] rounded-xl overflow-hidden py-3 px-2 relative shadow-lg hover:shadow-xl cursor-pointer hover:scale-101 duration-150 ease-out opacity-80 active:opacity-90 hover:opacity-90 border-2;
   }
 
   .card p {
