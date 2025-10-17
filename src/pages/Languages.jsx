@@ -1,6 +1,6 @@
 import Footer from "../components/Footer";
 import Section from "../components/Section";
-import Option from "../components/LanguageOption";
+import Option from "../components/ImageOption";
 import { languages } from "../config";
 import { useState } from "react";
 
@@ -37,7 +37,7 @@ function Languages() {
           <Option
             onClick={() => optionClick(item)}
             active={selected.includes(item)}
-            src={value[i].image}
+            src={"/public/Images/languages/" + value[i].image}
             key={i}
           >
             {item}
@@ -45,7 +45,7 @@ function Languages() {
         ))}
       </div>
 
-      <Footer />
+      <Footer next="/theme" />
     </>
   );
 }

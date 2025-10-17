@@ -42,7 +42,7 @@ function Themes() {
         ))}
       </div>
 
-      <Footer />
+      <Footer prev="/language" next="/result" />
     </>
   );
 }

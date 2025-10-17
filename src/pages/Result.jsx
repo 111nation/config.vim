@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Card from "../components/Card";
 import Config from "../components/Config";
 import Homebar from "../components/Homebar";
 import PopUp from "../components/PopUp";
 import Section from "../components/Section";
+import Option from "../components/ImageOption";
 
 function Result() {
   let [vimscript, setVimScript] = useState(false);
@@ -45,14 +45,22 @@ function Result() {
     <>
       {showPopUp}
       <Section>Download Config</Section>
-      <div class="flex flex-col sm:flex-row gap-7 sm:gap-4 p-10 max-w-[1600px] m-auto">
-        <div class="w-full sm:w-[25%] max-w-[500px] sm:max-w-[200px] flex flex-row sm:flex-col gap-5">
-          <Card onClick={() => changeConfigType(false)} active={!vimscript}>
-            NEOVIM LUA
-          </Card>
-          <Card onClick={() => changeConfigType(true)} active={vimscript}>
-            VIMSCRIPT
-          </Card>
+      <div className="flex flex-col gap-7 sm:gap-4 p-10 max-w-[1600px] m-auto">
+        <div className="w-full flex flex-col sm:flex-row gap-5">
+          <Option
+            src="/public/Images/nvim.png"
+            onClick={() => changeConfigType(false)}
+            active={!vimscript}
+          >
+            Neovim lua
+          </Option>
+          <Option
+            src="/public/Images/vim.png"
+            onClick={() => changeConfigType(true)}
+            active={vimscript}
+          >
+            Vimscript
+          </Option>
         </div>
         <Config
           onCopy={onCopy}

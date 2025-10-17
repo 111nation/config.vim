@@ -17,7 +17,9 @@
         >
           Config.vim
         </p>
-        <button class="btn hidden sm:block">GENERATE</button>
+        <button class="btn hidden sm:block" onclick="generate()">
+          GENERATE
+        </button>
       </nav>
 
       <main
@@ -33,7 +35,7 @@
           Save time and generate Vimrc, Neovim Configs & Init.nvim Examples in
           Seconds!
         </h3>
-        <button class="btn mt-5">GENERATE</button>
+        <button class="btn mt-5 generate" onclick="generate()">GENERATE</button>
 
         <div
           class="hero-gradient absolute top-0 left-0 w-full h-full -z-2"
@@ -76,7 +78,9 @@
           </div>
         </div>
 
-        <button class="btn block m-auto mt-10">GENERATE</button>
+        <button class="btn block m-auto mt-10 generate" onclick="generate()">
+          GENERATE
+        </button>
       </section>
 
       <section>
@@ -100,5 +104,11 @@
         <p class="font-mono py-5">© 2025 Config.vim</p>
       </footer>
     </div>
+
+    <script>
+      function generate() {
+        window.location.href = "/app";
+      }
+    </script>
   </body>
 </html>
