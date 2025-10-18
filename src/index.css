@@ -75,15 +75,18 @@ body {
 *::-webkit-scrollbar {
   width: 10px;
   height: 10px;
+  z-index: 10000;
 }
 
 *::-webkit-scrollbar-track {
   background: transparent;
+  z-index: 10000;
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: rgba(198, 224, 189, 0.6);
   border-radius: 5px;
+  z-index: 10000;
 }
 
 .hero-gradient {
@@ -112,4 +115,8 @@ textarea {
 
 code {
   @apply bg-dark-green text-green font-extralight rounded px-2;
+}
+
+a {
+  @apply font-medium underline text-green outline-none;
 }

@@ -5,6 +5,8 @@ export const config = {
   theme: "",
 };
 
+retrieveConfig();
+
 // Language Options
 export const languages = new Map([
   ["Rust", { image: "rust.png", plugin: ["coc-rls"] }],
@@ -82,6 +84,20 @@ function getTheme() {
   }
 
   return theme;
+}
+
+// Save configuration files to localStorage
+export function saveConfig() {
+  localStorage.setItem("config", JSON.stringify(config));
+}
+
+// Retrieve configuration files from localStorage
+export function retrieveConfig() {
+  let configSave = JSON.parse(localStorage.getItem("config"));
+  if (!configSave) return;
+  config.languages = configSave.languages;
+  config.plugins = configSave.plugins;
+  config.theme = configSave.theme;
 }
 
 // Generate configuration as vimscript
@@ -176,6 +192,7 @@ ${other}
 	`;
 }
 
+// Generate configuration as lua
 export function generateLua() {
   // BASIC SETTINGS
 

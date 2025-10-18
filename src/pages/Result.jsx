@@ -46,7 +46,7 @@ function Result() {
     <>
       {showPopUp}
       <Section>Download Config</Section>
-      <div className="flex flex-col gap-7 sm:gap-4 p-10 max-w-[1600px] m-auto">
+      <div className="flex flex-col gap-7 sm:gap-4 p-10 max-w-[1600px] m-auto mb-[5em]">
         <div className="w-full flex flex-col sm:flex-row gap-5">
           <Option
             src="/public/Images/nvim.png"

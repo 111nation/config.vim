@@ -34,7 +34,7 @@ function Themes() {
       </nav>
       <Section>Select Theme</Section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 m-auto max-w-[1200px] p-10 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 m-auto max-w-[1200px] p-10 gap-5 mb-[5em]">
         {theme.map((item, i) => (
           <Option
             colors={values[i].colors}
