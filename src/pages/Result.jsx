@@ -4,6 +4,7 @@ import Homebar from "../components/Homebar";
 import PopUp from "../components/PopUp";
 import Section from "../components/Section";
 import Option from "../components/ImageOption";
+import { generateLua, generateVimRC } from "../config";
 
 function Result() {
   let [vimscript, setVimScript] = useState(false);
@@ -66,7 +67,9 @@ function Result() {
           onCopy={onCopy}
           onDownload={onDownload}
           className="w-full h-[70vh]"
-        ></Config>
+        >
+          {vimscript ? generateVimRC() : generateLua()}
+        </Config>
       </div>
       <Homebar></Homebar>
     </>

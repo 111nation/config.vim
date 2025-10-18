@@ -1,27 +1,32 @@
 import Footer from "../components/Footer";
 import Section from "../components/Section";
 import Option from "../components/ImageOption";
-import { languages } from "../config";
-import { useState } from "react";
+import { config, languages } from "../config";
+import { useEffect, useState } from "react";
 
 function Languages() {
-  let [selected, setSelected] = useState([]);
+  let [selected, setSelected] = useState([...config.languages]);
 
   const name = Array.from(languages.keys());
   const value = Array.from(languages.values());
 
   const optionClick = (name) => {
+    let temp = [...selected];
     if (selected.includes(name)) {
       // Deselect
       let index = selected.indexOf(name);
-      selected.splice(index, 1); // Remove 1st element at index 'index'
+      temp.splice(index, 1); // Remove 1st element at index 'index'
     } else {
       // Select
-      selected.push(name);
+      temp.push(name);
     }
 
-    setSelected([...selected]);
+    setSelected([...temp]);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -32,7 +37,7 @@ function Languages() {
       </nav>
       <Section>Select Language</Section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2  p-10 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 m-auto max-w-[1200px] p-10 gap-5">
         {name.map((item, i) => (
           <Option
             onClick={() => optionClick(item)}
@@ -45,7 +50,11 @@ function Languages() {
         ))}
       </div>
 
-      <Footer next="/theme" />
+      <Footer
+        next="/theme"
+        onNext={() => (config.languages = [...selected])}
+        onPrev={() => (config.languages = [...selected])}
+      />
     </>
   );
 }

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Section from "../components/Section";
 import Option from "../components/ThemeOption";
-import { themes } from "../config";
+import { config, themes } from "../config";
 
 function Themes() {
   // You can only select one theme
 
-  let [selected, setSelected] = useState("");
+  let [selected, setSelected] = useState(config.theme);
   const theme = Array.from(themes.keys());
   const values = Array.from(themes.values());
 
@@ -21,6 +21,10 @@ function Themes() {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <nav className="bg-dark-green flex flex-row justify-between items-center py-4 px-20 sticky top-0 left-0 z-100">
@@ -30,7 +34,7 @@ function Themes() {
       </nav>
       <Section>Select Theme</Section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2  p-10 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 m-auto max-w-[1200px] p-10 gap-5">
         {theme.map((item, i) => (
           <Option
             colors={values[i].colors}
@@ -42,7 +46,12 @@ function Themes() {
         ))}
       </div>
 
-      <Footer prev="/language" next="/result" />
+      <Footer
+        prev="/language"
+        next="/result"
+        onNext={() => (config.theme = selected)}
+        onPrev={() => (config.theme = selected)}
+      />
     </>
   );
 }

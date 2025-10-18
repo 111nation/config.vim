@@ -12,7 +12,7 @@ function Plugins() {
       </nav>
       <Section>Select Plugins</Section>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2  p-10 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 m-auto max-w-[1200px] p-10 gap-5">
         <Option>NERDTree</Option>
       </div>
 
