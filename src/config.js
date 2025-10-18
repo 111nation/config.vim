@@ -1,9 +1,11 @@
+// Object storing all user's stored configuration options
 export const config = {
   languages: [],
   plugins: [],
   theme: "",
 };
 
+// Language Options
 export const languages = new Map([
   ["Rust", { image: "rust.png", plugin: ["coc-rls"] }],
   ["HTML", { image: "html.png", plugin: ["coc-html", "coc-emmet"] }],
@@ -21,6 +23,7 @@ export const languages = new Map([
   ["C++", { image: "cpp.png", plugin: ["coc-clangd"] }],
 ]);
 
+// Theme Options
 export const themes = new Map([
   [
     "Catppuccin",
@@ -56,26 +59,38 @@ export const themes = new Map([
   ],
 ]);
 
-export function generateVimRC() {
-  let themePlugin = "";
-  let themeColorScheme = "";
+// Grab all selected languages by name and return
+// all required plugins for the config as an array
+function getLanguagePlugins() {
+  let plugins = new Set();
+  for (let name of config.languages) {
+    let language = languages.get(name);
+    if (language) {
+      language.plugin.forEach(plugins.add, plugins); // Add each coc plugin into the set
+    }
+  }
+
+  return Array.from(plugins);
+}
+
+// Get theme plugin and colorscheme using theme name
+function getTheme() {
+  const theme = { plugin: "", colorscheme: "" };
   if (themes.get(config.theme)) {
-    themePlugin = themes.get(config.theme).plugin[0];
-    themeColorScheme = themes.get(config.theme).colorscheme;
+    theme.plugin = themes.get(config.theme).plugin[0];
+    theme.colorscheme = themes.get(config.theme).colorscheme;
   }
 
-  let languagePlugins = [];
-  for (let lang of config.languages) {
-    languagePlugins.push(...languages.get(lang).plugin);
-  }
+  return theme;
+}
 
+// Generate configuration as vimscript
+export function generateVimRC() {
   // BASIC SETTINGS
 
-  const basicSettings = `
-" --- Basic Settings ---
+  const basicSettings = `" --- Basic Settings ---
 set encoding=utf-8
 set number
-set relativenumber
 set wrap
 set background=dark
 syntax on
@@ -94,7 +109,6 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-set nohlsearch
 
 " --- Mouse and UI ---
 set mouse=a
@@ -104,30 +118,28 @@ set wildmenu
 set scrolloff=20
 set cursorline
 
-" --- Clipboard ---
-set clipboard=unnamedplus
-
 " --- Status Line ---
 set statusline=%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c
 
 " --- Line Behaviour ---
 set virtualedit=onemore
 set wrap
-set showbreak=...
-`;
+set showbreak=...`;
 
   // PLUGINS
 
-  const plugins = `
+  let theme = getTheme();
+
+  const plugins = `" --- Plugins ---
 call plug#begin()
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	${config.theme && `Plug '${themePlugin}'`}
-call plug#end()
-`;
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}	
+	${config.theme && `Plug '${theme.plugin}'`}
+call plug#end()`;
 
   // LANGUAGES
 
   let languageSettings = "";
+  let languagePlugins = getLanguagePlugins();
   if (config.languages.length > 0) {
     languageSettings = `let g:coc_global_extensions = [`;
     for (let i in languagePlugins) {
@@ -140,9 +152,10 @@ call plug#end()
   }
 
   // OTHER
-  const other = `
+  const other = `" --- Auto Complete Settings ---
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\\<CR>"
 
+" --- Theming Settings ---
 " Set the background to transparent
 autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE
 autocmd VimEnter * hi NormalNC guibg=NONE ctermbg=NONE
@@ -152,11 +165,11 @@ autocmd VimEnter * hi VertSplit guibg=NONE ctermbg=NONE
 " Show CocList diagnostics quick
 nnoremap e :CocList diagnostics<CR>
 
-${themeColorScheme && `colorscheme ${themeColorScheme}`}
-`;
+${config.theme && `colorscheme ${theme.colorscheme}`}`;
 
   return `
 ${basicSettings}
+
 ${plugins}
 ${languageSettings}
 ${other}
@@ -164,5 +177,91 @@ ${other}
 }
 
 export function generateLua() {
-  return "";
+  // BASIC SETTINGS
+
+  const basicSettings = `-- Basic Settings
+vim.o.encoding= "utf-8"
+vim.o.number = true
+vim.o.wrap = true
+vim.o.background= "dark"
+vim.o.syntax = true
+vim.o.clipboard="unnamedplus"
+vim.o.termguicolors = true
+
+-- Tabs and Indentation 
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true;
+vim.cmd("filetype plugin indent on")
+
+-- Search
+vim.o.hlsearch = true
+vim.o.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Mouse and UI
+vim.o.mouse = "a"
+vim.o.ruler = true
+vim.o.showmatch = true
+vim.o.wildmenu = true
+vim.o.scrolloff = 20
+vim.o.cursorline = true
+
+-- Status Line
+vim.o.statusline = "%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c";
+
+-- Line Behaviour
+vim.o.virtualedit = "onemore";
+vim.o.wrap = true
+vim.o.showbreak = "..."`;
+
+  // PLUGINS
+
+  let theme = getTheme();
+
+  const plugins = `-- Plugins
+vim.call("plug#begin()")
+    Plug('neoclide/coc.nvim', { ['branch'] = 'release'}) 
+	${config.theme && `Plug('${theme.plugin}')`}
+vim.call("plug#end()")`;
+
+  // LANGUAGES
+
+  let languageSettings = "";
+  let languagePlugins = getLanguagePlugins();
+  if (config.languages.length > 0) {
+    languageSettings = `vim.g.coc_global_extensions = {`;
+    for (let i in languagePlugins) {
+      languageSettings += `'${languagePlugins[i]}'`;
+      if (i < languagePlugins.length - 1) {
+        languageSettings += ", ";
+      }
+    }
+    languageSettings += "}";
+  }
+
+  // OTHER
+  const other = `-- Auto Complete Settings
+vim.cmd('inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\\<CR>"')
+
+-- Theming Settings
+" Set the background to transparent
+vim.cmd("autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE")
+vim.cmd("autocmd VimEnter * hi NormalNC guibg=NONE ctermbg=NONE")
+vim.cmd("autocmd VimEnter * hi SignColumn guibg=NONE ctermbg=NONE")
+vim.cmd("autocmd VimEnter * hi VertSplit guibg=NONE ctermbg=NONE")
+
+-- Show CocList diagnostics quick
+vim.keymap.set('n', 'e', ':CocList diagnostics<CR>')
+
+${config.theme && `vim.cmd('colorscheme = ${theme.colorscheme}')`}`;
+
+  return `
+${basicSettings}
+
+${plugins}
+${languageSettings}
+${other}
+	`;
 }

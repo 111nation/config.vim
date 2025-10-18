@@ -27,7 +27,7 @@ function Result() {
     const file = new Blob([value], { type: "text/plain" });
     link.href = URL.createObjectURL(file);
 
-    link.download = vimscript ? ".vimrc" : "init.vim";
+    link.download = vimscript ? ".vimrc" : "init.lua";
     link.click();
     URL.revokeObjectURL(link.href);
 
