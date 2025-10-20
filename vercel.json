@@ -2,6 +2,6 @@
   "cleanUrls": true,
   "redirects": [
     { "source": "/app", "destination": "/app.html" },
-    { "source": "/app.html", "destination": "/app.html" }
+    { "source": "/app/(.*)", "destination": "/app.html" }
   ]
 }
