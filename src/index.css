@@ -65,8 +65,6 @@ body {
   width: 100vw;
   height: 100vh;
 
-  user-select: none;
-
   color: #c6e0bd;
 
   scrollbar-width: thin;
