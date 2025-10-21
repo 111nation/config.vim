@@ -10,25 +10,32 @@ function Config(props) {
 
   return (
     <div
-      class={
+      onClick={onShow}
+      className={
         props.className +
-        " bg-dark-green border-1 border-[#507767] rounded-xl flex flex-col py-5 h-fit"
+        " bg-dark-green border-1 border-[#507767] rounded-xl flex flex-col py-5 h-fit cursor-pointer"
       }
     >
-      <div class="font-mono text-md underline font-semibold text-[#87AE87] flex flex-row justify-between px-5">
-        <p class="cursor-pointer hover:text-light-green" onClick={onShow}>
+      <div className="font-mono text-md underline font-semibold text-[#87AE87] flex flex-row justify-between px-5">
+        <p className="cursor-pointer hover:text-light-green" onClick={onShow}>
           Show
         </p>
-        <div class="flex flex-row">
+        <div className="flex flex-row">
           <p
-            onClick={props.onCopy}
-            class="mx-5 cursor-pointer hover:text-light-green"
+            onClick={(e) => {
+              e.stopPropagation();
+              props.onCopy();
+            }}
+            className="mx-5 cursor-pointer hover:text-light-green"
           >
             Copy
           </p>
           <p
-            onClick={props.onDownload}
-            class="cursor-pointer hover:text-light-green"
+            onClick={(e) => {
+              e.stopPropagation();
+              props.onDownload();
+            }}
+            className="cursor-pointer hover:text-light-green"
           >
             Download
           </p>
@@ -36,8 +43,13 @@ function Config(props) {
       </div>
 
       {show && (
-        <div class="w-full m-0 p-0 mt-5 sm:mt-0 h-fit">
-          <div class="font-mono font-medium text-sm sm:text-md outline-none text-light-green text-nowrap sm:text-wrap w-full h-fit text-pretty whitespace-break-spaces m-0 resize-none pl-5 overflow-x-scroll sm:overflow-x-hidden sm:text-wrap">
+        <div
+          className="w-full m-0 p-0 mt-5 sm:mt-0 h-fit"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <div className="font-mono font-medium text-sm sm:text-md outline-none text-light-green text-nowrap sm:text-wrap w-full h-fit text-pretty whitespace-break-spaces m-0 resize-none pl-5 overflow-x-scroll sm:overflow-x-hidden sm:text-wrap cursor-default">
             {props.children}
           </div>
           <textarea

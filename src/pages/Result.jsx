@@ -5,7 +5,7 @@ import PopUp from "../components/PopUp";
 import Section from "../components/Section";
 import Option from "../components/ImageOption";
 import { generateLua, generateVimRC } from "../config";
-import VimInstallation from "../components/Installation";
+import Installation from "../components/Installation";
 
 function Result() {
   let [vimscript, setVimScript] = useState(false);
@@ -17,7 +17,11 @@ function Result() {
     navigator.clipboard.writeText(value);
 
     // Show Pop Up
-    setPopUp(<PopUp title="Copied" onClick={() => setPopUp(<></>)}></PopUp>);
+    setPopUp(
+      <PopUp title="Copied" onClick={() => setPopUp(<></>)}>
+        Copied
+      </PopUp>,
+    );
   };
 
   const onDownload = () => {
@@ -34,7 +38,9 @@ function Result() {
 
     // Show Pop Up
     setPopUp(
-      <PopUp title="Downloaded" onClick={() => setPopUp(<></>)}></PopUp>,
+      <PopUp title="Downloaded" onClick={() => setPopUp(<></>)}>
+        Downloaded
+      </PopUp>,
     );
   };
 
@@ -71,7 +77,7 @@ function Result() {
         >
           {vimscript ? generateVimRC() : generateLua()}
         </Config>
-        <VimInstallation />
+        {<Installation vimscript={vimscript} />}
       </div>
       <Homebar></Homebar>
     </>

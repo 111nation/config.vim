@@ -1,7 +1,7 @@
 import Code from "./Code";
 import { getLanguagePlugins } from "../config";
 
-function VimInstallation() {
+function Installation(props) {
   let languages = getLanguagePlugins().join(" ");
 
   return (
@@ -11,22 +11,34 @@ function VimInstallation() {
 
       <p className="subheading">Placing configuration</p>
 
-      <div className="grid grid-cols-2 w-full gap-20 items-start justify-center p-0 m-0">
-        <div className="flex flex-col">
-          <p className="section">Vim</p>
-          <p>
-            Copy or download the config as <code>~/.vimrc</code> where{" "}
-            <code>.vimrc</code> is in your home directory.
-          </p>
+      {(props.vimscript || props.vimscript === undefined) && (
+        <div className="grid grid-cols-2 w-full gap-20 items-start justify-center p-0 m-0">
+          <div className="flex flex-col">
+            <p className="section">Vim</p>
+            <p>
+              Copy or download the config as <code>~/.vimrc</code> where{" "}
+              <code>.vimrc</code> is in your home directory.
+            </p>
+          </div>
+          <div>
+            <p className="section">Neovim</p>
+            <p>
+              Copy or download the config as{" "}
+              <code>~/.config/nvim/init.vim</code> where <code>init.vim</code>{" "}
+              is in <code>~/.config/nvim/</code>.
+            </p>
+          </div>
         </div>
+      )}
+
+      {props.vimscript !== undefined && !props.vimscript && (
         <div>
-          <p className="section">Neovim</p>
           <p>
-            Copy or download the config as <code>~/.config/nvim/init.vim</code>{" "}
-            where <code>init.vim</code> is in <code>~/.config/nvim/</code>.
+            Copy or download the config as <code>~/.config/nvim/init.lua</code>{" "}
+            where <code>init.lua</code> is in <code>~/.config/nvim/</code>.
           </p>
         </div>
-      </div>
+      )}
 
       <p className="subheading">Installing dependencies</p>
 
@@ -74,4 +86,4 @@ function VimInstallation() {
     </div>
   );
 }
-export default VimInstallation;
+export default Installation;
