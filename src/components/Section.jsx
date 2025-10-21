@@ -1,7 +1,7 @@
 function Section(props) {
   return (
     <main className="relative w-screen flex flex-col justify-center items-center p-7 border-b-1 border-b-mild-green overflow-hidden">
-      <h1 className="font-semibold text-4xl text-center text-light-green-2">
+      <h1 className="font-semibold text-3xl sm:text-4xl text-center text-light-green-2">
         {props.children}
       </h1>
       <div className="hero-gradient absolute top-0 left-0 w-full h-full -z-2"></div>
