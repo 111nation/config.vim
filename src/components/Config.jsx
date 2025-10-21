@@ -16,25 +16,19 @@ function Config(props) {
         " bg-dark-green border-1 border-[#507767] rounded-xl flex flex-col py-5 h-fit cursor-pointer"
       }
     >
-      <div className="font-mono text-md underline font-semibold text-[#87AE87] flex flex-row justify-between px-5">
+      <div className="font-mono text-sm sm:text-md underline font-semibold text-[#87AE87] flex flex-row justify-between px-5">
         <p className="cursor-pointer hover:text-light-green" onClick={onShow}>
           Show
         </p>
         <div className="flex flex-row">
           <p
-            onClick={(e) => {
-              e.stopPropagation();
-              props.onCopy();
-            }}
+            onClick={() => props.onCopy()}
             className="mx-5 cursor-pointer hover:text-light-green"
           >
             Copy
           </p>
           <p
-            onClick={(e) => {
-              e.stopPropagation();
-              props.onDownload();
-            }}
+            onClick={() => props.onDownload()}
             className="cursor-pointer hover:text-light-green"
           >
             Download
