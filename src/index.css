@@ -120,3 +120,15 @@ code {
 a {
   @apply font-medium underline text-green outline-none;
 }
+
+.heading {
+  @apply text-3xl font-extrabold my-7;
+}
+
+.subheading {
+  @apply text-xl font-semibold mt-15 mb-7;
+}
+
+.section {
+  @apply text-lg font-medium my-5;
+}

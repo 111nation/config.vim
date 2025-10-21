@@ -35,6 +35,7 @@ function Themes() {
             colors={values[i].colors}
             active={selected == item}
             onClick={() => optionClick(item)}
+            key={item}
           >
             {item}
           </Option>

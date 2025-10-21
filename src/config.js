@@ -20,7 +20,7 @@ export const languages = new Map([
     "TypeScript",
     { image: "typescript.svg", plugin: ["coc-tsserver", "coc-json"] },
   ],
-  ["Python", { image: "python.png", plugin: ["coc-python"] }],
+  ["Python", { image: "python.png", plugin: ["coc-pyright"] }],
   ["C", { image: "c.png", plugin: ["coc-clangd"] }],
   ["C++", { image: "cpp.png", plugin: ["coc-clangd"] }],
 ]);
@@ -63,7 +63,7 @@ export const themes = new Map([
 
 // Grab all selected languages by name and return
 // all required plugins for the config as an array
-function getLanguagePlugins() {
+export function getLanguagePlugins() {
   let plugins = new Set();
   for (let name of config.languages) {
     let language = languages.get(name);
@@ -76,10 +76,10 @@ function getLanguagePlugins() {
 }
 
 // Get theme plugin and colorscheme using theme name
-function getTheme() {
+export function getTheme(vimscript = true) {
   const theme = { plugin: "", colorscheme: "" };
   if (themes.get(config.theme)) {
-    theme.plugin = themes.get(config.theme).plugin[0];
+    theme.plugin = themes.get(config.theme).plugin[vimscript ? 0 : 1];
     theme.colorscheme = themes.get(config.theme).colorscheme;
   }
 
@@ -140,7 +140,18 @@ set statusline=%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c
 " --- Line Behaviour ---
 set virtualedit=onemore
 set wrap
-set showbreak=...`;
+set showbreak=...
+
+" --- Install vim-plug and plugins ---
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \\| PlugInstall --sync | source $MYVIMRC
+\\| endif`;
 
   // PLUGINS
 
@@ -231,11 +242,24 @@ vim.o.statusline = "%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c";
 -- Line Behaviour
 vim.o.virtualedit = "onemore";
 vim.o.wrap = true
-vim.o.showbreak = "..."`;
+vim.o.showbreak = "..."
+
+-- Install vim-plug and plugins
+vim.cmd([[
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \\| PlugInstall --sync | source $MYVIMRC
+\\| endif
+]])`;
 
   // PLUGINS
 
-  let theme = getTheme();
+  let theme = getTheme(false);
 
   const plugins = `-- Plugins
 vim.call("plug#begin()")

@@ -5,6 +5,7 @@ import PopUp from "../components/PopUp";
 import Section from "../components/Section";
 import Option from "../components/ImageOption";
 import { generateLua, generateVimRC } from "../config";
+import VimInstallation from "../components/Installation";
 
 function Result() {
   let [vimscript, setVimScript] = useState(false);
@@ -70,6 +71,7 @@ function Result() {
         >
           {vimscript ? generateVimRC() : generateLua()}
         </Config>
+        <VimInstallation />
       </div>
       <Homebar></Homebar>
     </>
