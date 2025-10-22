@@ -18,7 +18,7 @@ function Config(props) {
     >
       <div className="font-mono text-sm sm:text-md underline font-semibold text-[#87AE87] flex flex-row justify-between px-5">
         <p className="cursor-pointer hover:text-light-green" onClick={onShow}>
-          Show
+          {!show ? "Show" : "Hide"}
         </p>
         <div className="flex flex-row">
           <p
