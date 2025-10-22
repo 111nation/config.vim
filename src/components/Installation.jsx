@@ -90,10 +90,10 @@ function Installation(props) {
             <a href="https://github.com/neoclide/coc.nvim">coc.nvim</a> as a
             language server hoster. To install all your languages, enter Vim and
             run{" "}
-            <Code title="Install Languages" className="my-5">
-              :CocInstall {languages}
-            </Code>{" "}
           </p>
+          <Code title="Install Languages" className="my-5">
+            :CocInstall {languages}
+          </Code>{" "}
         </div>
       )}
     </div>

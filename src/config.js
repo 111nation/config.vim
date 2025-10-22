@@ -79,7 +79,8 @@ export function getLanguagePlugins() {
 export function getTheme(vimscript = true) {
   const theme = { plugin: "", colorscheme: "" };
   if (themes.get(config.theme)) {
-    theme.plugin = themes.get(config.theme).plugin[vimscript ? 0 : 1];
+    let plugin = themes.get(config.theme).plugin;
+    theme.plugin = plugin[plugin.length === 1 || vimscript ? 0 : 1];
     theme.colorscheme = themes.get(config.theme).colorscheme;
   }
 
@@ -192,7 +193,16 @@ autocmd VimEnter * hi VertSplit guibg=NONE ctermbg=NONE
 " Show CocList diagnostics quick
 nnoremap e :CocList diagnostics<CR>
 
-${config.theme && `colorscheme ${theme.colorscheme}`}`;
+${
+  config.theme &&
+  `try
+  colorscheme ${theme.colorscheme}
+catch
+  echohl WarningMsg
+  echom "Could not install theme, run :PlugInstall and restart Neovim."
+  echohl None
+endtry`
+}`;
 
   return `
 ${basicSettings}
@@ -212,7 +222,7 @@ vim.o.encoding= "utf-8"
 vim.o.number = true
 vim.o.wrap = true
 vim.o.background= "dark"
-vim.o.syntax = true
+vim.o.syntax = "on"
 vim.o.clipboard="unnamedplus"
 vim.o.termguicolors = true
 
@@ -237,10 +247,10 @@ vim.o.scrolloff = 20
 vim.o.cursorline = true
 
 -- Status Line
-vim.o.statusline = "%f\\ %y\\ %m\\ %r\\ %=%l/%L\\ %p%%\\ %c";
+vim.o.statusline = "%f\\\\ %y\\\\ %m\\\\ %r\\\\ %=%l/%L\\\\ %p%%\\\\ %c"
 
 -- Line Behaviour
-vim.o.virtualedit = "onemore";
+vim.o.virtualedit = "onemore"
 vim.o.wrap = true
 vim.o.showbreak = "..."
 
@@ -262,10 +272,12 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   let theme = getTheme(false);
 
   const plugins = `-- Plugins
-vim.call("plug#begin()")
+local Plug = vim.fn['plug#']
+
+vim.call("plug#begin")
     Plug('neoclide/coc.nvim', { ['branch'] = 'release'}) 
 	${config.theme && `Plug('${theme.plugin}')`}
-vim.call("plug#end()")`;
+vim.call("plug#end")`;
 
   // LANGUAGES
 
@@ -284,10 +296,10 @@ vim.call("plug#end()")`;
 
   // OTHER
   const other = `-- Auto Complete Settings
-vim.cmd('inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\\<CR>"')
+vim.cmd("inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : \\"\\\\<CR>\\"")
 
 -- Theming Settings
-" Set the background to transparent
+-- Set the background to transparent
 vim.cmd("autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE")
 vim.cmd("autocmd VimEnter * hi NormalNC guibg=NONE ctermbg=NONE")
 vim.cmd("autocmd VimEnter * hi SignColumn guibg=NONE ctermbg=NONE")
@@ -296,7 +308,13 @@ vim.cmd("autocmd VimEnter * hi VertSplit guibg=NONE ctermbg=NONE")
 -- Show CocList diagnostics quick
 vim.keymap.set('n', 'e', ':CocList diagnostics<CR>')
 
-${config.theme && `vim.cmd('colorscheme = ${theme.colorscheme}')`}`;
+${
+  config.theme &&
+  `local ok, _ = pcall(vim.cmd, "colorscheme ${theme.colorscheme}")
+if not ok then
+  vim.notify("Could not install theme, run :PlugInstall and restart Neovim.", vim.log.levels.WARN)
+end`
+}`;
 
   return `
 ${basicSettings}

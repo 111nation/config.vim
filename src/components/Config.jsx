@@ -51,6 +51,7 @@ function Config(props) {
             name="config"
             className="hidden"
             value={props.children}
+            readOnly
           ></textarea>
         </div>
       )}
