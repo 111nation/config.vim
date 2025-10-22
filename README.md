@@ -2,6 +2,10 @@
 
 Create Vim and Neovim Configs In Seconds!
 
+##### Leave a star while you are here :)
+
+**Website**: https://config-vim.vercel.app/
+
 <table>
   <tr>
     <td width="33%">
