@@ -109,6 +109,10 @@ body {
   padding-bottom: 5em;
 }
 
+.root {
+  padding-bottom: 0em;
+}
+
 textarea {
   resize: none;
 }

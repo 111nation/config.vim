@@ -56,6 +56,19 @@ function Installation(props) {
       </div>
 
       <div>
+        <p className="section">Curl</p>
+        <Code title="Debian/Ubuntu" className="my-5">
+          apt install curl
+        </Code>
+        <Code title="Arch Linux" className="my-5">
+          sudo pacman -S curl
+        </Code>
+        <Code title="Other" className="my-5">
+          curl -sL install-node.vercel.app/lts | bash
+        </Code>
+      </div>
+
+      <div>
         <br />
         <p className="section">Plugins</p>
         <p>

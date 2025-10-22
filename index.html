@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Config.vim | vimrc and init.vim configs</title>
+    <title>Config.vim | vimrc & init.vim configs</title>
 
     <!-- Social Sharing -->
     <meta
@@ -13,7 +13,27 @@
       property="og:description"
       content="Generate .vimrc and neovim configs. Examples with language servers and themes."
     />
-    <meta property="og:image" content="/Vim.webp" />
+    <meta
+      property="og:image"
+      content="https://config-vim.vercel.app/Images/vim.webp"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://config-vim.vercel.app/" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="Config.vim | vimrc and init.vim configs"
+    />
+    <meta
+      property="twitter:description"
+      content="Generate .vimrc and neovim configs. Examples with language servers and themes."
+    />
+    <meta
+      property="twitter:image"
+      content="https://config-vim.vercel.app/Images/vim.webp"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://config-vim.vercel.app/" />
 
@@ -114,8 +134,15 @@
         </h4>
         <div class="flex flex-col justify-center items-center w-full">
           <video
-            class="bg-light-green opacity-80 rounded-xl w-[90%] sm:w-[80%] max-w-[1000px] aspect-[16/9]"
-          ></video>
+            class="border-2 border-[#87AE87] opacity-80 rounded-xl w-[90%] sm:w-[90%] max-w-[1000px] aspect-[16/9] p-0 cursor-pointer hover:scale-101 active:scale-101 outline"
+            id="demo-video"
+            onclick="generate()"
+            loop
+            muted
+            playsinline
+          >
+            <source class="w-full" src="/VimPromo.mp4" type="video/mp4" />
+          </video>
           <p
             class="font-mono text-center text-lg mt-10 max-w-[80vw] sm:max-w-[1000px]"
           >
@@ -136,6 +163,23 @@
       function generate() {
         window.location.href = "/app";
       }
+
+      const video = document.getElementById("demo-video");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.5 }, // play when 50% visible
+      );
+
+      observer.observe(video);
     </script>
   </body>
 </html>

@@ -7,7 +7,7 @@ function Section(props) {
       <div className="hero-gradient absolute top-0 left-0 w-full h-full -z-2"></div>
       <img
         className="absolute inset-0 w-full object-cover -z-1 opacity-9 blur-[0.75px]"
-        src="/public/Images/code_pattern.png"
+        src="/Images/code_pattern.png"
         alt="Neovim init.vim config"
       />
     </main>
