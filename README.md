@@ -37,13 +37,22 @@ Create Vim and Neovim Configs In Seconds!
 
 <table>
   <tr>
-    <td width="33%">
+    <td>
+       Landing Page
+      <img width="95%" src="https://github.com/user-attachments/assets/e0613a37-5b0a-4c28-9ea8-4c755e30edc4" />
+    </td>
+    <td width="50%">
+       Select Languages
 <img width="95%" alt="Theme (2)" src="https://github.com/user-attachments/assets/42ddc6e2-6dd7-4501-8798-a3a95c5ca496" />
+    </td>    
+  </tr>
+  <tr>
+    <td width="50%">
+   Select Themes
+      <img width="95%" alt="Theme" src="https://github.com/user-attachments/assets/fe0a177c-2ee3-4c55-930e-f2349a155dbd" />
     </td>
-    <td width="33%">
-   <img width="95%" alt="Theme" src="https://github.com/user-attachments/assets/fe0a177c-2ee3-4c55-930e-f2349a155dbd" />
-    </td>
-    <td width="33%">
+     <td width="50%">
+        Select Plugins
    <img width="95%" alt="Theme (1)" src="https://github.com/user-attachments/assets/51d36b34-019e-47f7-9013-8781afb7b31b" />
     </td>
   </tr>
